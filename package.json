@@ -7,6 +7,7 @@
     "js:build:main": "asbundle client/index.js public/main.js",
     "dev:server": "nodemon --watch runner.mjs --watch api runner.mjs | bunyan",
     "dev:client": "nodemon --watch client --exec \"npm run js:build:main\"",
+    "build": "npm run js:build:main",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
