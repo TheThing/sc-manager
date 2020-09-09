@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Install npm deployment app
+          command: sudo npm install -g github-release-cli
+      - deploy:
+          name: Create a release
+          command: |
+            PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[", ]//g')
+            echo "Packaging to ${CIRCLE_PROJECT_REPONAME}_build-sc.zip"
+            zip "${CIRCLE_PROJECT_REPONAME}_build-sc.zip" index.mjs package.json api/**
+            echo "Creating release '${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM}'"
+            github-release upload \
+              --commitish $CIRCLE_SHA1 \
+              --token $GITHUB_TOKEN \
+              --owner $CIRCLE_PROJECT_USERNAME \
+              --repo $CIRCLE_PROJECT_REPONAME \
+              --tag "v${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM}" \
+              --name "v${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM}" \
+              --body "Automatic CircleCI Build of v${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM} from ${CIRCLE_SHA1}" \
+              sc-helloworld_build-sc.zip
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build:
+          context: github-thething
