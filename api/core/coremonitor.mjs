@@ -17,4 +17,10 @@ export default function coremonitor(io, config, db, log, core) {
       logs: app.logs,
     })
   }))
+  core.on('managelog', safeWrap(log, 'coremonitor.on.managelog', function(manage) {
+    io.to('core.manage').emit('core.program.log', {
+      name: 'manage',
+      logs: manage.logs,
+    })
+  }))
 }

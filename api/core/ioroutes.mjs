@@ -121,10 +121,32 @@ export async function listentoapp(ctx) {
 }
 
 /*
+ * Event: 'core.listentomanage'
+ *
+ * Start listening to changes in core manage
+ */
+export async function listentomanage(ctx) {
+  ctx.socket.join('core.manage')
+  ctx.socket.emit('core.program.log', {
+    name: 'manage',
+    logs: ctx.core.getProgramLogs('manage')
+  })
+}
+
+/*
  * Event: 'core.unlistentoapp'
  *
  * Stop listening to new log lines
  */
 export async function unlistentoapp(ctx) {
   ctx.socket.leave('core.app')
+}
+
+/*
+ * Event: 'core.unlistentomanage'
+ *
+ * Stop listening to new log lines
+ */
+export async function unlistentomanage(ctx) {
+  ctx.socket.leave('core.manage')
 }

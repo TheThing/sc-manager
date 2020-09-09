@@ -6,5 +6,5 @@
   "managePort": 4271,
   "devPort": 4269,
   "appRepository": "thething/sc-helloworld",
-  "manageRepository": null
+  "manageRepository": "TheThing/sc-manager"
 }

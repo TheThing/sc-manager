@@ -80,7 +80,11 @@ const Updater = Module({
   loadAppData() {
     this.updateActiveDb()
     if (this.activeApp === 'app') {
+      socket.emit('core.unlistentomanage', {})
       socket.emit('core.listentoapp', {})
+    } else {
+      socket.emit('core.unlistentoapp', {})
+      socket.emit('core.listentomanage', {})
     }
     /* request to listen to app updates */
   },
@@ -88,6 +92,7 @@ const Updater = Module({
   remove: function() {
     socket.emit('core.unlistencore', {})
     socket.emit('core.unlistentoapp', {})
+    socket.emit('core.unlistentomanage', {})
   },
 
   startUpdate: function() {
@@ -113,7 +118,7 @@ const Updater = Module({
           href: '/updater/app',
         }, 'Update App'),
         m(m.route.Link, {
-          hidden: this.manageRepository,
+          hidden: !this.manageRepository,
           class: 'button' + (this.activeApp === 'manage' ? ' active' : ''),
           href: '/updater/manage',
         }, 'Update Manager'),

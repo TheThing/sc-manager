@@ -7,6 +7,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Get current git commit message
+          command: |
+            echo "export COMMIT_MESSAGE=\"$(git log --format=oneline -n 1 $CIRCLE_SHA1)\"" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
           name: Install npm deployment app
           command: sudo npm install -g github-release-cli
       - run:
@@ -19,7 +24,7 @@ jobs:
           command: |
             PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[", ]//g')
             echo "Packaging to ${CIRCLE_PROJECT_REPONAME}_build-sc.zip"
-            zip "${CIRCLE_PROJECT_REPONAME}_build-sc.zip" index.mjs package.json public api/**
+            zip "${CIRCLE_PROJECT_REPONAME}_build-sc.zip" index.mjs package.json api/**/*
             echo "Creating release '${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM}'"
             github-release upload \
               --commitish $CIRCLE_SHA1 \
@@ -28,7 +33,7 @@ jobs:
               --repo $CIRCLE_PROJECT_REPONAME \
               --tag "v${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM}" \
               --name "v${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM}" \
-              --body "Automatic CircleCI Build of v${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM} from ${CIRCLE_SHA1}" \
+              --body "Automatic CircleCI Build of v${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM} from ${CIRCLE_SHA1}: ${COMMIT_MESSAGE}" \
               "${CIRCLE_PROJECT_REPONAME}_build-sc.zip"
 
 workflows:
