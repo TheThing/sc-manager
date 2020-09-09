@@ -51,14 +51,12 @@ export async function unlistenlogs(ctx) {
  * Update specific software
  */
 export async function update(ctx, data, cb) {
-  if (data.name === 'app') {
-    await ctx.core.updateProgram('app')
-  } else if (data.name === 'manage') {
-    await ctx.core.updateProgram('manage')
-  } else {
+  if (data.name !== 'app' && data.name !== 'manage') {
     ctx.log.warn('Invalid update command for app ' + data.name)
     ctx.log.event.warn('Invalid update command for app ' + data.name)
+    return
   }
+  await ctx.core.updateProgram(data.name)
 }
 
 /*
@@ -67,14 +65,26 @@ export async function update(ctx, data, cb) {
  * Start specific software
  */
 export async function start(ctx, data, cb) {
-  if (data.name === 'app') {
-    await ctx.core.startProgram('app')
-  } else if (data.name === 'manage') {
-    await ctx.core.startProgram('manage')
-  } else {
+  if (data.name !== 'app' && data.name !== 'manage') {
     ctx.log.warn('Invalid start command for app ' + data.name)
     ctx.log.event.warn('Invalid start command for app ' + data.name)
+    return
   }
+  await ctx.core.tryStartProgram(data.name)
+}
+
+/*
+ * Event: 'core.updatestart'
+ *
+ * Update and start specific software
+ */
+export async function updatestart(ctx, data, cb) {
+  if (data.name !== 'app' && data.name !== 'manage') {
+    ctx.log.warn('Invalid updatestart command for app ' + data.name)
+    ctx.log.event.warn('Invalid updatestart command for app ' + data.name)
+    return
+  }
+  await ctx.core.start(data.name)
 }
 
 /*

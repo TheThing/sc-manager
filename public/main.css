@@ -140,10 +140,10 @@ pre {
 
 #logger span.white { color: rgb(242,242,242); }
 #logger span.yellow { color: rgb(193,156,0); }
-#logger span.cyan { color: rgb(58,150,221); }
-#logger span.magenta { color: rgb(136,23,152); }
-#logger span.red { color: rgb(197,15,31); }
-#logger span.green { color: rgb(19,161,14); }
+#logger span.cyan { color: hsl(206.1, 70.6%, 63.7%); }
+#logger span.magenta { color: hsl(292.6, 73.7%, 58.3%); }
+#logger span.red { color: hsl(354.7, 85.8%, 67.6%); }
+#logger span.green { color: hsl(118, 84%, 46.3%); }
 #logger span.inverse {
   color: #0c0c0c;
   background: white;
@@ -187,15 +187,21 @@ pre {
   padding: 0.25rem 1rem;
 }
 #status .item p.running {
-  color: rgb(19,161,14);
+  color: hsl(118, 84%, 46.3%);
   text-align: center;
 }
 #status .item p.notrunning {
-  color: rgb(197,15,31);
+  color: hsl(354.7, 85.8%, 67.6%);
   text-align: center;
 }
 #status button {
   margin-top: 1rem;
+}
+#status .status {
+  margin-top: 1rem;
+  align-self: center;
+  padding: 0.5rem;
+  color: #ccc;
 }
 
 /***************** Updater ********************/
@@ -264,7 +270,7 @@ pre {
 
 @media only screen and (min-height: 650px) {
   #update .console {
-    height: calc(100vh - 340px);
+    height: calc(100vh - 300px);
   }
 }
 

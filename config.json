@@ -3,7 +3,8 @@
   "serviceName": "Service-Core Manager",
   "description": "Manager for service core",
   "port": 4270,
-  "managePort": 4269,
+  "managePort": 4271,
+  "devPort": 4269,
   "appRepository": "thething/sc-helloworld",
   "manageRepository": null
 }

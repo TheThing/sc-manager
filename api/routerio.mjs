@@ -28,6 +28,7 @@ function onConnection(server, config, db, log, coreService, data) {
   const child = log.child({
     id: socket.id,
   })
+  child.event = log.event
 
   child.info('Got new socket connection')
 

@@ -1,4 +1,3 @@
-import http from 'http'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import socket from 'socket.io-serveronly'
@@ -7,7 +6,7 @@ import coremonitor from './core/coremonitor.mjs'
 
 import onConnection from './routerio.mjs'
 
-export function run(config, db, log, core) {
+export function run(config, db, log, core, http, port) {
   const __dirname = path.dirname(fileURLToPath(import.meta.url))
   const staticRoot = path.join(__dirname,'../public')
 
@@ -70,13 +69,13 @@ export function run(config, db, log, core) {
 
   coremonitor(io, config, db, log, core)
 
-  server.listen(config.managePort, '0.0.0.0', function(err) {
+  server.listen(port, '0.0.0.0', function(err) {
     if (err) {
       log.fatal(err)
       log.event.error('Error starting server: ' + err.message)
       return process.exit(2)
     }
-    log.event.info(`Server is listening on ${config.managePort} serving files on ${staticRoot}`)
-    log.info(`Server is listening on ${config.managePort} serving files on ${staticRoot}`)
+    log.event.info(`Server is listening on ${port} serving files on ${staticRoot}`)
+    log.info(`Server is listening on ${port} serving files on ${staticRoot}`)
   })
 }

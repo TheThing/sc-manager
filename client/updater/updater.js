@@ -68,7 +68,6 @@ const Updater = Module({
       this.app = {
         repository: this[this.activeApp + 'Repository'],
         active: this.db[this.activeApp + 'Active'],
-        lastActive: this.db[this.activeApp + 'LastActive'],
         latestInstalled: this.db[this.activeApp + 'LatestInstalled'],
         latestVersion: this.db[this.activeApp + 'LatestVersion'],
         logs: '',
@@ -120,19 +119,16 @@ const Updater = Module({
         }, 'Update Manager'),
       ]),
       this.activeApp && this.app ? [
-        m('h4', this.app.repository
-          ? `${this.app.repository}`
-          : '< no repository >'),
         m('div.info', [
-          m('p', this.app.active
-            ? `Running version: ${this.app.active}`
-            : '< no running version >'),
+          m('p', this.app.repository
+          ? `Repository: ${this.app.repository}`
+          : '< no repository >'),
           m('p', this.app.latestInstalled
             ? `Latest installed: ${this.app.latestInstalled}`
             : '< no version installed >'),
-          m('p', this.app.lastActive
-            ? `Last stable version: ${this.app.lastActive}`
-            : '< no last stable version >'),
+          m('p', this.app.active
+          ? `Running version: ${this.app.active}`
+          : '< no running version >'),
           m('p', this.app.latestVersion
             ? `Latest version: ${this.app.latestVersion}`
             : '< no version found >'),
