@@ -24,7 +24,7 @@ jobs:
           command: |
             PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[", ]//g')
             echo "Packaging to ${CIRCLE_PROJECT_REPONAME}_build-sc.zip"
-            zip "${CIRCLE_PROJECT_REPONAME}_build-sc.zip" index.mjs package.json api/**/* api/*
+            zip "${CIRCLE_PROJECT_REPONAME}_build-sc.zip" index.mjs package.json public api/**/* api/*
             echo "Creating release '${PACKAGE_VERSION}.${CIRCLE_BUILD_NUM}'"
             github-release upload \
               --commitish $CIRCLE_SHA1 \
