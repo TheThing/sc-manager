@@ -21,6 +21,7 @@
     "asbundle": "^2.6.1",
     "bunyan-lite": "^1.0.1",
     "mithril": "^2.0.4",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "service-core": "^2.0.0"
   }
 }
