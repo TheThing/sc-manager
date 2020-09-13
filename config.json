@@ -1,5 +1,6 @@
 {
   "name": "service-core-manage",
+  "githubAuthToken": null,
   "serviceName": "Service-Core Manager",
   "description": "Manager for service core",
   "port": 4270,

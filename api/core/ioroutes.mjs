@@ -56,7 +56,7 @@ export async function update(ctx, data, cb) {
     ctx.log.event.warn('Invalid update command for app ' + data.name)
     return
   }
-  await ctx.core.updateProgram(data.name)
+  await ctx.core.installLatestVersion(data.name)
 }
 
 /*

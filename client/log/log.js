@@ -6,9 +6,11 @@ const Log = Module({
   init: function() {
     this.connected = socket.connected
     this.loglines = []
+    this.logUpdated = false
     
     this.on('newlog', data => {
       this.loglines.push(this.formatLine(data))
+      this.logUpdated = true
       m.redraw()
     })
 
@@ -24,6 +26,7 @@ const Log = Module({
     socket.emit('core.listenlogs', {})
     socket.emit('core.getlastlogs', {}, (res) => {
       this.loglines = res.map(this.formatLine)
+      this.logUpdated = true
       m.redraw()
     })
   },
@@ -43,7 +46,14 @@ const Log = Module({
   view: function() {
     return [
       m('h1.header', 'Log'),
-      m('div#logger', [
+      m('div#logger', {
+        onupdate: (vnode) => {
+          if (this.logUpdated) {
+            vnode.dom.scrollTop = vnode.dom.scrollHeight
+            this.logUpdated = false
+          }
+        }
+      }, [
         this.loglines.map((line, i) => {
           return m('div', { key: i }, line)
         }),

@@ -221,9 +221,12 @@ pre {
 #update .actions .filler {
   flex-grow: 2;
 }
-#update .actions .button.active {
+
+#update .actions .button.inactive {
   background: transparent;
   color: #ffb843;
+}
+#update .actions .button.active {
 }
 
 @media only screen and (max-device-width: 590px) {

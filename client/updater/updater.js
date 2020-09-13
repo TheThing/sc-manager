@@ -114,12 +114,12 @@ const Updater = Module({
         m('div.filler'),
         m(m.route.Link, {
           hidden: !this.appRepository,
-          class: 'button' + (this.activeApp === 'app' ? ' active' : ''),
+          class: 'button ' + (this.activeApp === 'app' ? 'active' : 'inactive'),
           href: '/updater/app',
         }, 'Update App'),
         m(m.route.Link, {
           hidden: !this.manageRepository,
-          class: 'button' + (this.activeApp === 'manage' ? ' active' : ''),
+          class: 'button ' + (this.activeApp === 'manage' ? 'active' : 'inactive'),
           href: '/updater/manage',
         }, 'Update Manager'),
       ]),

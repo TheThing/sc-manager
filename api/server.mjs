@@ -8,6 +8,8 @@ import onConnection from './routerio.mjs'
 
 export function run(config, db, log, core, http, port) {
   return new Promise(function(resolve, reject) {
+    core.startMonitor()
+
     const __dirname = path.dirname(fileURLToPath(import.meta.url))
     const staticRoot = path.join(__dirname,'../public')
 
